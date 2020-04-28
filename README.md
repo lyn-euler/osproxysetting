@@ -14,8 +14,18 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Usage
-U can use this plugin to fetch system proxy settings. And can set `HttpClient`'s findProxy method, so that u can use Charles(or other tools) to wireshark
+U can use this plugin to fetch system proxy settings. And can set `HttpClient`'s findProxy method, so that u can use Charles(or other tools) to wireshark.
+
+
 Example in use dio in Flutter or other libary use HttpCilent.
+
+First, add dependency to your pubspec.yaml
+
+```yaml
+osproxysetting: ^0.0.1
+```
+
+Then set findProxy function.
 
 ```Dart
 if (_debugMode) {

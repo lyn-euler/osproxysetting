@@ -28,7 +28,7 @@ class ProxySetting {
 class OsProxySetting {
   static const MethodChannel _channel = const MethodChannel('osproxysetting');
 
-  /// 异步获取系统代理配置
+  /// 异步获取系统代理配置·
   static Future<ProxySetting> get setting async {
     final Map settings = await _channel.invokeMethod('settings');
     if (settings == null) {
