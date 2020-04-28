@@ -9,6 +9,7 @@ class _OsProxySettingKey {
   static final port = 'HTTPPort';
 }
 
+/// system proxy setting entity class
 class ProxySetting {
   final bool httpEnable;
 
@@ -27,6 +28,7 @@ class ProxySetting {
 class OsProxySetting {
   static const MethodChannel _channel = const MethodChannel('osproxysetting');
 
+  /// 异步获取系统代理配置
   static Future<ProxySetting> get setting async {
     final Map settings = await _channel.invokeMethod('settings');
     if (settings == null) {
@@ -49,11 +51,12 @@ class OsProxySetting {
   static DateTime _preFetchTime;
 
   /// 非实时数据
-  static ProxySetting cacheSetting({double maxCacheTime = _DefaultMaxCacheTime}) {
+  static ProxySetting cacheSetting(
+      {double maxCacheTime = _DefaultMaxCacheTime}) {
     final now = DateTime.now();
     if (_preFetchTime == null ||
         _proxySetting == null ||
-        now.second -  _preFetchTime.second > maxCacheTime) {
+        now.second - _preFetchTime.second > maxCacheTime) {
       setting.then((settings) {
         _proxySetting = settings;
         _preFetchTime = now;
