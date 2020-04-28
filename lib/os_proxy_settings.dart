@@ -33,7 +33,7 @@ class OsProxySetting {
       return ProxySetting();
     }
     var httpEnable = settings[_OsProxySettingKey.httpEnable] ?? false;
-    if(httpEnable is String) {
+    if (httpEnable is String) {
       httpEnable = httpEnable == 'true' || (int.parse(httpEnable) != 0);
     }
     return ProxySetting(
