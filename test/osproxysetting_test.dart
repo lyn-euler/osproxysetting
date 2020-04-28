@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await OsProxySetting.settings, settings);
+    expect(await OsProxySetting.setting, settings);
   });
 }

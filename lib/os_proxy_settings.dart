@@ -27,7 +27,7 @@ class ProxySetting {
 class OsProxySetting {
   static const MethodChannel _channel = const MethodChannel('osproxysetting');
 
-  static Future<ProxySetting> get settings async {
+  static Future<ProxySetting> get setting async {
     final Map settings = await _channel.invokeMethod('settings');
     if (settings == null) {
       return ProxySetting();
@@ -42,5 +42,23 @@ class OsProxySetting {
       host: settings[_OsProxySettingKey.host],
       port: settings[_OsProxySettingKey.port],
     );
+  }
+
+  static const _DefaultMaxCacheTime = Duration.secondsPerMinute / 6;
+  static ProxySetting _proxySetting;
+  static DateTime _preFetchTime;
+
+  /// 非实时数据
+  static ProxySetting cacheSetting({double maxCacheTime = _DefaultMaxCacheTime}) {
+    final now = DateTime.now();
+    if (_preFetchTime == null ||
+        _proxySetting == null ||
+        now.second -  _preFetchTime.second > maxCacheTime) {
+      setting.then((settings) {
+        _proxySetting = settings;
+        _preFetchTime = now;
+      });
+    }
+    return _proxySetting;
   }
 }
