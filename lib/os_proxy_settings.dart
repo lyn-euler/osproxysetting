@@ -46,7 +46,7 @@ class OsProxySetting {
     );
   }
 
-  static const _DefaultMaxCacheTime = Duration.secondsPerMinute / 6;
+  static const _DefaultMaxCacheTime = Duration.secondsPerMinute / 6 * 1000;
   static ProxySetting _proxySetting;
   static DateTime _preFetchTime;
 
@@ -56,7 +56,7 @@ class OsProxySetting {
     final now = DateTime.now();
     if (_preFetchTime == null ||
         _proxySetting == null ||
-        now.second - _preFetchTime.second > maxCacheTime) {
+        now.millisecondsSinceEpoch - _preFetchTime.millisecondsSinceEpoch > maxCacheTime) {
       setting.then((settings) {
         _proxySetting = settings;
         _preFetchTime = now;

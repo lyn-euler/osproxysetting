@@ -6,7 +6,7 @@ void main() {
   const MethodChannel channel = MethodChannel('osproxysetting');
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  const settings = {'test': 1};
+  const settings = {'enable': false, 'host': null, 'port': null};
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return settings;
@@ -17,7 +17,8 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await OsProxySetting.setting, settings);
+  test('get proxy setting', () async {
+    final setting = await OsProxySetting.setting;
+    expect(setting.toString(), settings.toString());
   });
 }
