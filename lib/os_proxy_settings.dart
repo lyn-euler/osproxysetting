@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class _OsProxySettingKey {
-  static final httpsEnable = 'HTTPSEnable';
+  // static final httpsEnable = 'HTTPSEnable';
   static final httpEnable = 'HTTPEnable';
   static final host = 'HTTPProxy';
   static final port = 'HTTPPort';
@@ -14,8 +14,8 @@ class ProxySetting {
   final bool httpEnable;
 
 //  final bool httpsEnable;
-  final String host;
-  final String port;
+  final String? host;
+  final String? port;
 
   ProxySetting({this.httpEnable = false, this.host, this.port});
 
@@ -30,7 +30,7 @@ class OsProxySetting {
 
   /// 异步获取系统代理配置·
   static Future<ProxySetting> get setting async {
-    final Map settings = await _channel.invokeMethod('settings');
+    final Map? settings = await _channel.invokeMethod('settings');
     if (settings == null) {
       return ProxySetting();
     }
@@ -47,16 +47,16 @@ class OsProxySetting {
   }
 
   static const _DefaultMaxCacheTime = Duration.secondsPerMinute / 6 * 1000;
-  static ProxySetting _proxySetting;
-  static DateTime _preFetchTime;
+  static ProxySetting? _proxySetting;
+  static DateTime? _preFetchTime;
 
   /// 非实时数据
-  static ProxySetting cacheSetting(
+  static ProxySetting? cacheSetting(
       {double maxCacheTime = _DefaultMaxCacheTime}) {
     final now = DateTime.now();
     if (_preFetchTime == null ||
         _proxySetting == null ||
-        now.millisecondsSinceEpoch - _preFetchTime.millisecondsSinceEpoch > maxCacheTime) {
+        now.millisecondsSinceEpoch - _preFetchTime!.millisecondsSinceEpoch > maxCacheTime) {
       setting.then((settings) {
         _proxySetting = settings;
         _preFetchTime = now;

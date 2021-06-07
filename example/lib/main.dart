@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final settings = await OsProxySetting.settings;
+      final settings = await OsProxySetting.setting;
       platformVersion = "$settings";
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
