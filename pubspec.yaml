@@ -1,6 +1,6 @@
 name: osproxysetting
 description: A new Flutter plugin to fetch os proxy setting.
-version: 0.0.2
+version: 0.1.0
 author: lyn-euler
 homepage: https://github.com/lyn-euler/osproxysetting
 
